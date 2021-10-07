@@ -14,6 +14,24 @@ set(EXT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ext)
 find_package(Threads REQUIRED)
 find_package(Eigen3 REQUIRED)
 
+if(NOT Eigen3_FOUND)
+	message(STATUS "Including Eigen from source")
+
+	include(FetchContent)
+
+	FetchContent_Declare(
+		eigen
+		GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
+		GIT_TAG        3.4.0
+  	)
+
+	FetchContent_GetProperties(eigen)
+	if(NOT eigen_POPULATED)
+		FetchContent_Populate(eigen)
+		add_subdirectory(${eigen_SOURCE_DIR} ${eigen_BINARY_DIR})
+	endif()
+endif()
+
 include_directories(
 	# libigl
 	${EXT_DIR}/libigl/include
