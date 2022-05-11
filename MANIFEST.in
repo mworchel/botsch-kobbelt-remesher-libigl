@@ -1,0 +1,7 @@
+include README.md LICENSE ext/libigl/LICENSE.GPL ext/libigl/LICENSE.MPL2 ext/numpyeigen/LICENSE
+graft ext/igl/include
+graft ext/numpyeigen/external
+graft ext/numpyeigen/src
+graft src
+graft remeshmesh.cpp
+global-include CMakeLists.txt *.cmake
