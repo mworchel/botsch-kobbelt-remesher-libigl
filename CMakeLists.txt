@@ -23,8 +23,6 @@ list(APPEND CMAKE_MODULE_PATH ${EXT_DIR}/numpyeigen/cmake)
 include(numpyeigen)
 
 add_library(remesh
-	SHARED
-
 	# Headers
 	src/collapse_edges.h
 	src/equalize_valences.h
