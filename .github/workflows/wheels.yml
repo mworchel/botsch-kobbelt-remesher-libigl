@@ -26,7 +26,7 @@ jobs:
           output-dir: wheelhouse
         env:
           # We don't support Python 2.7
-          CIBW_SKIP: cp27-*
+          CIBW_SKIP: cp27-* *-win32 *-manylinux_i686 cp310-win* cp310-macosx* pp*-macosx*
           CIBW_BEFORE_BUILD: python -m pip install numpy
 
       - uses: actions/upload-artifact@v2
