@@ -1,0 +1,34 @@
+name: Wheels
+
+on:
+  # Triggers the workflow on manual dispatch or when a release is published
+  workflow_dispatch:
+  release:
+    types:
+      - published
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.1.3
+        with:
+          output-dir: wheelhouse
+        env:
+          # We don't support Python 2.7
+          CIBW_SKIP: cp27-*
+          CIBW_BEFORE_BUILD: python -m pip install numpy
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./wheelhouse/*.whl
